@@ -1,0 +1,29 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %} Bonjour, {{ app.user.login ?? "Anonyme" }} ! {% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Bonjour, {{ app.user.login ?? "Anonyme" }} !</h1>
+    <h1>Sélectionnez un tournoi !</h1>
+
+    <ul>
+        {% for e in evts %}
+        <li><h2> {{ e.nom }} </h2></li>
+        <em> Du {{ e.dateDeb|date('d/m/Y') }} au {{ e.dateFin|date('d/m/Y') }}</em>
+        <ul>
+        {% for t in e.tournois %}
+        <li><em> <a href="gerer/{{t.id}}">{{ t.nom }}</a></em> ( {{ t.description }})
+        {% endfor %}
+        </ul>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des tournois {% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Liste des événements et des tournois</h1>
+
+    <ul>
+        {% for e in evts %}
+        <li><h2> {{ e.nom }} </h2></li>
+        <em> Du {{ e.dateDeb|date('d/m/Y') }} au {{ e.dateFin|date('d/m/Y') }}</em>
+        <ul>
+        {% for t in e.tournois %}
+        <li><em> {{ t.nom }}</em> ( {{ t.description }})
+        {% endfor %}
+        </ul>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
