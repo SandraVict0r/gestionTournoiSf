@@ -3,8 +3,11 @@
 https://phpmyadmin.alwaysdata.com/
 
 alwaysdata
-karim.siahmed17@gmail.com
-tournoi2021
+
+User:
+	karim.siahmed17@gmail.com
+PassWord:
+	tournoi2021
 
 
 PhpMyAdmin:
