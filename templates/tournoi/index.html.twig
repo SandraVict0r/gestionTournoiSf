@@ -14,7 +14,7 @@
     <ul>
         {% for e in evts %}
         <li><h2> {{ e.nom }} </h2></li>
-        <em> Du {{ e.dateDeb|date('d/m/Y') }} au {{ e.dateFin|date('d/m/Y') }}</em>
+        <em> Du {{ e.dateDeb|date('d-m-Y') }} au {{ e.dateFin|date('d-m-Y') }}</em>
         <ul>
         {% for t in e.tournois %}
         <li><em> {{ t.nom }}</em> ( {{ t.description }})

@@ -34,7 +34,7 @@ class GestionnaireController extends AbstractController
 
         if($user!=null){
             if($user->getRoles()[0]=='ROLE_GEST'){
-                $evts = $this->getDoctrine()->getManager()->getRepository("App\Entity\Evenement")->findBy(["user_id"=>$user]);
+                $evts = $this->getDoctrine()->getManager()->getRepository("App\Entity\Evenement")->findBy(["user"=>$user]);
                 return $this->render('gestionnaire/index.html.twig', [
                     'evts' => $evts,
                 ]);

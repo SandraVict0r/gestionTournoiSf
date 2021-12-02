@@ -25,7 +25,7 @@ class Evenement
     private $nom;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateDeb;
 
@@ -42,7 +42,7 @@ class Evenement
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
      */
-    private $user_id;
+    private $user;
 
 
     public function __construct()
@@ -122,14 +122,14 @@ class Evenement
     }
 
     
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user ;
 
         return $this;
     }

@@ -154,7 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->evenements->contains($evenement)) {
             $this->evenements[] = $evenement;
-            $evenement->setUserId($this);
+            $evenement->setUser($this);
         }
 
         return $this;
@@ -164,8 +164,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->evenements->removeElement($evenement)) {
             // set the owning side to null (unless already changed)
-            if ($evenement->getUserId() === $this) {
-                $evenement->setUserId(null);
+            if ($evenement->getUser() === $this) {
+                $evenement->setUser(null);
             }
         }
 
@@ -184,7 +184,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->setUserId($this);
+            $event->setUser($this);
         }
 
         return $this;
@@ -194,8 +194,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->events->removeElement($event)) {
             // set the owning side to null (unless already changed)
-            if ($event->getUserId() === $this) {
-                $event->setUserId(null);
+            if ($event->getUser() === $this) {
+                $event->setUser(null);
             }
         }
 
