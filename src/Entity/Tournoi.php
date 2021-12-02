@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\TournoiRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+
 
 /**
  * @ORM\Entity(repositoryClass=TournoiRepository::class)
+ * @ApiResource()
  */
 class Tournoi
 {
