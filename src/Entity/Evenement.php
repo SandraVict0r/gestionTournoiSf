@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
-
 /**
  * @ORM\Entity(repositoryClass=EvenementRepository::class)
  * @ApiResource()
@@ -30,12 +29,12 @@ class Evenement
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateDeb;
+    private $date;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $dateFin;
+    private $lieu;
 
     /**
      * @ORM\OneToMany(targetEntity=Tournoi::class, mappedBy="ev")
@@ -46,7 +45,6 @@ class Evenement
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
      */
     private $user;
-
 
     public function __construct()
     {
@@ -70,26 +68,26 @@ class Evenement
         return $this;
     }
 
-    public function getDateDeb(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->dateDeb;
+        return $this->date;
     }
 
-    public function setDateDeb(?\DateTimeInterface $dateDeb): self
+    public function setDate(?\DateTimeInterface $date): self
     {
-        $this->dateDeb = $dateDeb;
+        $this->date = $date;
 
         return $this;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
+    public function getLieu(): string
     {
-        return $this->dateFin;
+        return $this->lieu;
     }
 
-    public function setDateFin(?\DateTimeInterface $dateFin): self
+    public function setLieu(string $lieu): self
     {
-        $this->dateFin = $dateFin;
+        $this->lieu = $lieu;
 
         return $this;
     }
@@ -124,7 +122,6 @@ class Evenement
         return $this;
     }
 
-    
     public function getUser(): ?User
     {
         return $this->user;
@@ -132,10 +129,8 @@ class Evenement
 
     public function setUser(?User $user): self
     {
-        $this->user = $user ;
+        $this->user = $user;
 
         return $this;
     }
-
-   
 }
