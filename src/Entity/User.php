@@ -6,38 +6,53 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ *  normalizationContext={"groups"={"user:read"}},
+ *     denormalizationContext={"groups"={"user:write"}}
+ * )
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("user:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * 
+     * @Groups({"user:read", "user:write"})
      */
     private $login;
 
     /**
      * @ORM\Column(type="json")
+     * 
+     * @Groups("user:read")
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * 
+     * 
      */
     private $password;
+
+
 
     /**
      * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="user")
@@ -45,9 +60,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $evenements;
 
     /**
-     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="user_id")
+     * @Groups("user:write")
+     * @SerializedName("password")
      */
-    private $events;
+    private $plainPassword;
 
     public function __construct()
     {
@@ -135,13 +151,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return null;
     }
 
-    /**
+     /**
      * @see UserInterface
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     /**
@@ -174,33 +190,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Evenement[]
-     */
-    public function getEvents(): Collection
+    public function getPlainPassword(): ?string
     {
-        return $this->events;
+        return $this->plainPassword;
     }
 
-    public function addEvent(Evenement $event): self
+    public function setPlainPassword(string $plainPassword): self
     {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setUser($this);
-        }
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }
 
-    public function removeEvent(Evenement $event): self
-    {
-        if ($this->events->removeElement($event)) {
-            // set the owning side to null (unless already changed)
-            if ($event->getUser() === $this) {
-                $event->setUser(null);
-            }
-        }
 
-        return $this;
-    }
 }

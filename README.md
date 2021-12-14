@@ -18,3 +18,6 @@ user:
 PassWord:
 		
 	tournoi2021
+
+User :
+	Password: password
