@@ -24,6 +24,12 @@ class Equipe
      */
     private $nom;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Tournoi::class, inversedBy="equipes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $trn;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +43,18 @@ class Equipe
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getTrn(): ?Tournoi
+    {
+        return $this->trn;
+    }
+
+    public function setTrn(?Tournoi $trn): self
+    {
+        $this->trn = $trn;
 
         return $this;
     }
