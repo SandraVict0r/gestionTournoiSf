@@ -20,35 +20,23 @@ class Joueur
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $joueur_id;
-
-    /**
      * @ORM\Column(type="string", length=15)
      */
     private $niveau;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Equipe::class, inversedBy="joueurs")
      */
-    private $equipe_id;
+    private $eqp;
+
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $nom;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getJoueurId(): ?int
-    {
-        return $this->joueur_id;
-    }
-
-    public function setJoueurId(int $joueur_id): self
-    {
-        $this->joueur_id = $joueur_id;
-
-        return $this;
     }
 
     public function getNiveau(): ?string
@@ -63,14 +51,26 @@ class Joueur
         return $this;
     }
 
-    public function getEquipeId(): ?int
+    public function getEqp(): ?Equipe
     {
-        return $this->equipe_id;
+        return $this->eqp;
     }
 
-    public function setEquipeId(int $equipe_id): self
+    public function setEqp(?Equipe $eqp): self
     {
-        $this->equipe_id = $equipe_id;
+        $this->eqp = $eqp;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
 
         return $this;
     }
